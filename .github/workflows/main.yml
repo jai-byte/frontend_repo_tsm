@@ -60,4 +60,4 @@ jobs:
           sudo docker rm my-frontend-container || true
 
           # Run the new container from the pulled image
-          sudo docker run -d --name my-frontend-container -p 3000:3000 jaihub/my-frontend:latest
+          sudo docker run -d --name my-frontend-container -p 3000:80 jaihub/my-frontend:latest
