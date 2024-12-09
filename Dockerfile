@@ -5,7 +5,7 @@ FROM node:18 AS build
 WORKDIR /app
 
 # Step 2: Copy the package.json and package-lock.json (or yarn.lock) to the container
-COPY HRMS_FE-version1/package.json HRMS_FE-version1/package-lock.json ./
+COPY package.json package-lock.json ./
 
 # Step 3: Install the dependencies
 RUN npm install
