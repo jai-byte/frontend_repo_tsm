@@ -1,0 +1,47 @@
+.days-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 90%;
+  }
+  
+  .day-item {
+    padding: 10px;
+    text-align: center;
+    background-color: #f5f5f5;
+    /* border: 1px solid #ccc; */
+    /* border-radius: 8px; */
+    cursor: pointer;
+  }
+  
+  .day-item:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .day-item.highlighted {
+    background-color: #62a6dc;
+    color: white;
+    font-weight: bold;
+  }
+  .week-tab {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    width: 90%;
+  
+    button {
+      padding: 5px 10px;
+    }
+  }
+  .btn-outline-secondary{
+    border: none;
+  }
+  .btn-outline-secondary:hover{
+    background-color: #ddd;
+  }
+  .btn-primary1 {
+    background-color: "#62a6dc";
+  }
+  .btn-primary2 {
+    color: "#62a6dc";
+  }

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="13" height="24" viewBox="0 0 13 24">
+  <g id="Group_17250" data-name="Group 17250" transform="translate(-1717 -340)">
+    <g id="Group_17249" data-name="Group 17249" transform="translate(-1)">
+      <rect id="Rectangle_6772" data-name="Rectangle 6772" width="13" height="12" transform="translate(1718 340)" fill="#fff"/>
+      <path id="Icon_awesome-caret-up" data-name="Icon awesome-caret-up" d="M6.39,16.294H1.2A.4.4,0,0,1,.913,15.6l2.6-2.6a.4.4,0,0,1,.571,0l2.6,2.6A.4.4,0,0,1,6.39,16.294Z" transform="translate(1721.206 331.109)" fill="#acaeaf"/>
+    </g>
+    <g id="Group_17248" data-name="Group 17248" transform="translate(-1 -1)">
+      <rect id="Rectangle_6772-2" data-name="Rectangle 6772" width="13" height="12" transform="translate(1718 353)" fill="#fff"/>
+      <path id="Icon_awesome-caret-up-2" data-name="Icon awesome-caret-up" d="M6.39,12.891H1.2a.4.4,0,0,0-.285.689l2.6,2.6a.4.4,0,0,0,.571,0l2.6-2.6A.4.4,0,0,0,6.39,12.891Z" transform="translate(1721.206 344.109)" fill="#acaeaf"/>
+    </g>
+  </g>
+</svg>
