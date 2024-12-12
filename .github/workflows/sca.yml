@@ -1,4 +1,4 @@
-name: Snyk job
+name: software composition analysis (SCA) job by Snyk
 on: push
 jobs:
   security:
