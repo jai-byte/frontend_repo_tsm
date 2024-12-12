@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    branches:
-      - master
 
 jobs:
   snyk_scan:
@@ -18,19 +15,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Install dependencies (example for Node.js)
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Specify the Node.js version your project uses
+
+      # Step 3: Install dependencies (example for Node.js)
       - name: Install dependencies
         run: npm install
 
-      # Step 3: Run Snyk Scan
+      # Step 4: Run Snyk Scan
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions@v1
+        uses: snyk/actions@v2
         with:
           args: test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-      # Step 4 (Optional): Monitor project in Snyk
+      # Step 5 (Optional): Monitor project in Snyk
       - name: Monitor project in Snyk
         uses: snyk/actions@v2
         with:
