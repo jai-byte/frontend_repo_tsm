@@ -20,6 +20,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GT_TOKKEN }}  # Needed to get PR information
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectKey: jai-byte   # Replace with your organization and project key
+          organization: jai-byte   # Replace with your SonarCloud organization key
 
   build_push_deploy:
     name: Build, Push, and Deploy Docker Image
