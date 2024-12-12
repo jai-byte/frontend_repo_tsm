@@ -1,4 +1,4 @@
-name: scanning
+name: static application security testing 
 on:
   push:
     branches:
