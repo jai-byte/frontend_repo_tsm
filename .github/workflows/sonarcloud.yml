@@ -1,4 +1,4 @@
-name: static application security testing 
+name: static application security testing (SAST) by sonarcloud job
 on:
   push:
     branches:
