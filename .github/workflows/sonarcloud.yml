@@ -1,19 +1,87 @@
-name: static application security testing (SAST) by sonarcloud job
+name: Build, Push, Deploy, SCA, and SAST Workflow
+
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
-  
+
 jobs:
-  sonarqube:
-    name: SonarQube
+  # SAST by SonarCloud Job
+  sonarcloud_sast:
+    name: Static Application Security Testing (SAST) by SonarCloud
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: SonarQube Scan
+          fetch-depth: 0  # Ensure full clone for better analysis relevance
+
+      - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v4
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed for PR information
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_PROJECT_KEY: my-project-key  # Replace with your SonarCloud project key
+          SONAR_ORGANIZATION: my-organization  # Replace with your SonarCloud organization key
+
+  # SCA by Snyk Job
+  snyk_scan:
+    name: Software Composition Analysis by Snyk
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: monitor
+
+  # Build, Push, and Deploy Docker Image Job
+  build_push_deploy:
+    name: Build, Push, and Deploy Docker Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker Image
+        run: docker buildx build -t jaihub/my-frontend:latest -f Dockerfile .
+
+      - name: Push Docker Image
+        run: docker push jaihub/my-frontend:latest
+
+      - name: SSH into EC2 and pull Docker image
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            retries=3
+            until [ $retries -le 0 ]; do
+              sudo docker pull jaihub/my-frontend:latest && break || retries=$((retries - 1))
+              sleep 5
+            done
+
+      - name: Deploy Docker container on EC2
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            sudo docker stop my-frontend-container || true
+            sudo docker rm my-frontend-container || true
+            sudo docker run -d --name my-frontend-container -p 3000:80 jaihub/my-frontend:latest
