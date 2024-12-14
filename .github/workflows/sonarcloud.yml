@@ -70,9 +70,7 @@ jobs:
           script: |
             retries=3
             until [ $retries -le 0 ]; do
-              sudo docker pull jaihub/my-frontend:latest && break || retries=$((retries - 1))
-              sleep 5
-            done
+              sudo docker pull jaihub/my-frontend:latest 
 
       - name: Deploy Docker container on EC2
         uses: appleboy/ssh-action@v0.1.6
