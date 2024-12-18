@@ -93,7 +93,7 @@ resource "aws_instance" "app_servers" {
   subnet_id                   = aws_subnet.public_subnet.id
   vpc_security_group_ids      = [aws_security_group.allow_ssh_http.id]
   associate_public_ip_address = true
-  key_name = "tsm_key"
+  key_name                    = var.key
 
   tags = {
     Name = "ExampleAppServerInstance-${count.index + 1}"
