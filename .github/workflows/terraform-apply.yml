@@ -30,12 +30,12 @@ jobs:
 
       # Step 4: Initialize Terraform
       - name: Terraform Init
-        run: terraform init
+        run: terraform -chdir=terraform init
 
       # Step 5: Plan Terraform
       - name: Terraform Plan
-        run: terraform plan -out=plan.tfplan
+        run: terraform -chdir=terraform plan -out=plan.tfplan
 
       # Step 6: Apply Terraform
       - name: Terraform Apply
-        run: terraform apply -auto-approve plan.tfplan
+        run: terraform -chdir=terraform apply -auto-approve plan.tfplan
