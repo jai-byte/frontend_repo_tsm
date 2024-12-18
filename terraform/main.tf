@@ -10,8 +10,8 @@ terraform {
 # Secure credentials: Use environment variables, profiles, or IAM role
 provider "aws" {
   region = "us-east-1"
- # access_key = "AKIA6D6JBWKRRF4OIAWB"
- # secret_key = "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"
+  access_key = ""
+  secret_key = ""
 }
 
 # VPC creation
